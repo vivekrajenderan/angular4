@@ -1,0 +1,94 @@
+      
+<div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <div class="row">
+                        <div class="col-md-6">
+                        <h4 class="title">User List</h4>
+                        </div>
+                        <div class="col-md-6">
+                        <button class="btn btn-info pull-right" data-toggle="modal" data-target="#addModal" (click)="reset()">Add User</button>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>      
+                                    <th>SL.No</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th> 
+                                    <th>Email</th>
+                                    <th>Username</th>     
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let result of userList; let i = index">  
+                                    <td>{{i + 1}}</td>          
+                                    <td>{{result.firstname}}</td>
+                                    <td>{{result.lastname}}</td>
+                                    <td>{{result.email}}</td>
+                                    <td>{{result.username}}</td>   
+                                    <td><button class="btn btn-outline-danger"  data-toggle="modal" data-target="#addModal" (click)="editData(result,i)">Edit</button></td>  
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>                        
+        </div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{(userData.id)?'Edit User':'Add User'}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="row" *ngIf="errormsg">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="alert alert-danger" [innerHTML]="errormsg">                                    
+              
+            </div>
+        </div>
+        </div>
+        <div class="row" *ngIf="successmsg">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="alert alert-success" [innerHTML]="successmsg">                                   
+                   
+                </div>
+            </div>
+        </div>                
+        <form name="Adduser" #adduserForm="ngForm">
+            <input type="hidden" [(ngModel)]="userData.fsubmit" name="fsubmit" />
+           <div class="form-group">
+            <label for="title" class="form-control-label">First Name</label>
+            <input type="text" class="form-control" required name="firstname" placeholder="First Name" [(ngModel)]="userData.firstname">
+          </div>
+          <div class="form-group">
+            <label for="body" class="form-control-label">Last Name</label>
+            <input type="text" class="form-control" required name="lastname" placeholder="Last Name" [(ngModel)]="userData.lastname">
+          </div>
+          <div class="form-group">
+            <label for="username" class="form-control-label">User Name</label>
+            <input type="text" class="form-control" required name="username" placeholder="User Name" [(ngModel)]="userData.username">
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-control-label">Email</label>
+            <input type="text" class="form-control" required name="email" placeholder="Email" [(ngModel)]="userData.email">
+          </div>
+         
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reload()">Close</button>
+            <button type="button" class="btn btn-primary" (click)="addUser(userData)">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
